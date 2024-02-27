@@ -1,0 +1,78 @@
+public class Inchworm {
+
+    public int lunchtime(int branch, int rest, int leaf) {
+        // 检查输入参数的合法性
+        if (!isValidInput(branch, rest, leaf)) {
+            throw new IllegalArgumentException("Invalid input parameters");
+        }
+
+        // 计算尺蠖停下休息的位置
+        int[] restingPoints = calculateRestingPoints(branch, rest);
+
+        // 计算叶子的位置
+        int[] leafPositions = calculateLeafPositions(branch, leaf);
+
+        // 统计尺蠖吃掉的叶子数量
+        int eatenLeaves = countEatenLeaves(restingPoints, leafPositions);
+
+        return eatenLeaves;
+    }
+
+    // 验证输入参数的合法性
+    private boolean isValidInput(int branch, int rest, int leaf) {
+        return (branch >= 1 && branch <= 1000000) &&
+               (rest >= 1 && rest <= 1000) &&
+               (leaf >= 1 && leaf <= 1000);
+    }
+
+    // 计算尺蠖停下休息的位置
+    private int[] calculateRestingPoints(int branch, int rest) {
+        int numRestingPoints = branch / rest + 1;
+        int[] restingPoints = new int[numRestingPoints];
+
+        for (int i = 0; i < numRestingPoints; i++) {
+            restingPoints[i] = i * rest;
+        }
+
+        return restingPoints;
+    }
+
+    // 计算叶子的位置
+    private int[] calculateLeafPositions(int branch, int leaf) {
+        int numLeaves = branch / leaf + 1;
+        int[] leafPositions = new int[numLeaves];
+
+        for (int i = 0; i < numLeaves; i++) {
+            leafPositions[i] = i * leaf;
+        }
+
+        return leafPositions;
+    }
+
+    // 统计尺蠖吃掉的叶子数量
+    private int countEatenLeaves(int[] restingPoints, int[] leafPositions) {
+        int eatenLeaves = 0;
+
+        for (int restingPoint : restingPoints) {
+            for (int leafPosition : leafPositions) {
+                if (restingPoint == leafPosition) {
+                    eatenLeaves++;
+                    break; // 一旦找到匹配的叶子，就跳出内层循环
+                }
+            }
+        }
+
+        return eatenLeaves;
+    }
+
+    public static void main(String[] args) {
+        Inchworm inchworm = new Inchworm();
+
+        int branchLength = 10;
+        int restDistance = 3;
+        int leafDistance = 2;
+
+        int eatenLeaves = inchworm.lunchtime(branchLength, restDistance, leafDistance);
+        System.out.println("尺蠖吃掉的叶子数量：" + eatenLeaves);
+    }
+}
