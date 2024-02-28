@@ -1,0 +1,44 @@
+public class inchworm {
+    public static void main(String[] args){
+        int branch, leaf, rest; 
+        branch = 1000;
+        leaf = 3;
+        rest = 7;
+        if(1 <= branch && branch <= 1000000 && leaf >= 1 && leaf <= 1000 && rest >= 1 && rest <= 1000){
+            int i = 0;
+            int j = 0;
+            int leafpoints = branch / leaf + 1;
+            int restpoints = branch / rest + 1;
+            int[] leafposition = new int[leafpoints];
+            int[] restposition = new int[restpoints];
+            for (i = 0; i < leafpoints; i++) {
+                leafposition[i] = i * leaf;
+                //System.out.println(leafposition[i]);
+            }
+            for (j = 0; j < restpoints; j++) {
+                restposition[j] = j * rest;
+                //System.out.println(restposition[j]);
+            }
+            //System.out.println("i = " + i);
+            int returns = 0;
+            int a = 0;
+            int b = 0;
+            while(a < leafpoints && b < restpoints){
+                if(leafposition[a] == restposition[b]){
+                    //System.out.println("total " + leafposition[a]);
+                    returns++;
+                    a++;
+                    b++;
+                }else if(leafposition[a] > restposition[b]){
+                    b++;
+                }else{
+                    a++;
+                }
+            }
+            System.out.println("returns " + returns);
+            //System.out.println(i);
+        }else{
+            System.out.println("Please check the value range");
+        }
+    }
+}
